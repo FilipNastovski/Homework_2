@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Analysis Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <style>
+        body {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab-button {
+            padding: 10px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .tab-content {
+            display: none;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        table {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stock Analysis Dashboard</h1>
+    
+    <div class="tabs">
+        <button class="tab-button" data-tab="scraping">Data Scraping</button>
+        <button class="tab-button" data-tab="technical">Technical Analysis</button>
+        <button class="tab-button" data-tab="fundamental">Fundamental Analysis</button>
+        <button class="tab-button" data-tab="prediction">LSTM Prediction</button>
+    </div>
+
+    <!-- Data Scraping Tab -->
+    <div id="scraping" class="tab-content">
+        <h2>Stock Data Scraping</h2>
+        <select id="issuer-source">
+            <option>Get Issuer Codes from Dropdown</option>
+            <option>Get Issuer Codes from Free Market</option>
+        </select>
+        <input type="text" id="search-code" placeholder="Enter Issuer Code">
+        <button onclick="scrapeData()">Scrape Data</button>
+        
+        <table id="stock-data">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Open</th>
+                    <th>Close</th>
+                    <th>High</th>
+                    <th>Low</th>
+                </tr>
+            </thead>
+            <tbody id="stock-data-body"></tbody>
+        </table>
+    </div>
+
+    <!-- Technical Analysis Tab -->
+    <div id="technical" class="tab-content">
+        <h2>Technical Analysis</h2>
+        <select id="timeframe">
+            <option value="1day">1 Day</option>
+            <option value="1week">1 Week</option>
+            <option value="1month">1 Month</option>
+        </select>
+        <table id="technical-indicators">
+            <thead>
+                <tr>
+                    <th>Indicator</th>
+                    <th>Category</th>
+                    <th>Value</th>
+                    <th>Signal</th>
+                </tr>
+            </thead>
+            <tbody id="technical-indicators-body"></tbody>
+        </table>
+    </div>
+
+    <!-- Fundamental Analysis Tab -->
+    <div id="fundamental" class="tab-content">
+        <h2>Fundamental Analysis</h2>
+        <textarea id="news-text" placeholder="Paste news article here"></textarea>
+        <input type="range" id="sentiment-score" min="0" max="100" value="50">
+        <div id="sentiment-result"></div>
+        <button id="analyze-sentiment">Analyze Sentiment</button>
+    </div>
+
+    <!-- LSTM Prediction Tab -->
+    <div id="prediction" class="tab-content">
+        <h2>LSTM Stock Price Prediction</h2>
+        <label>Training Data Ratio: <span id="training-ratio-value">70%</span></label>
+        <input type="range" id="training-ratio" min="50" max="90" value="70">
+        <div id="prediction-metrics">
+            <p>Mean Squared Error: -</p>
+            <p>Root Mean Squared Error: -</p>
+        </div>
+        <button onclick="runPrediction()">Run LSTM Prediction</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
